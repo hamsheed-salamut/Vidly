@@ -26,7 +26,7 @@ namespace Vidly.Models
                 {
                     connection.Open();
 
-                    using (command = new SqlCommand(@"SELECT [Id], [Name] FROM [dbo].[Movers]", connection))
+                    using (command = new SqlCommand(@"SELECT [Id], [Name], [PostedOn] FROM [dbo].[Movers]", connection))
                     {
                         command.Notification = null;
 
@@ -46,7 +46,8 @@ namespace Vidly.Models
                             movers.Add(item: new Mover
                             {
                                 Id = (int)reader["Id"],
-                                Name = reader["Name"] != DBNull.Value ? (string)reader["Name"] : ""
+                                Name = reader["Name"] != DBNull.Value ? (string)reader["Name"] : "",
+                                PostedOn = reader["PostedOn"] != DBNull.Value ? (DateTime)reader["PostedOn"] : DateTime.Now
                             });
                         }
                     }
